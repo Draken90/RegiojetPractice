@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Simple HTML-XML test"
+           tests="2"
+           failures="1"
+           errors="0"
+           skipped="1"
+           time="0,000">
+  <properties />
+            <testcase name="inicializeLocalBs" time="0,000" classname="webtest.base.AbstractDemoTest">
+                <failure type="org.testng.TestNGException"
+                  message="
+Parameter &apos;withBrowserstack&apos; is required by BeforeTest on method inicializeLocalBs but has not been marked @Optional or defined
+in C:\Users\jnadeje\Documents\Projects\Demo\ukazka\csfd_tutorial\testy\src\main\resources\testng.xml"
+              >
+<![CDATA[org.testng.TestNGException: 
+Parameter 'withBrowserstack' is required by BeforeTest on method inicializeLocalBs but has not been marked @Optional or defined
+in C:\Users\jnadeje\Documents\Projects\Demo\ukazka\csfd_tutorial\testy\src\main\resources\testng.xml
+  org.testng.internal.Parameters.createParameters(Parameters.java:199)
+  org.testng.internal.Parameters.createParameters(Parameters.java:443)
+  org.testng.internal.Parameters.createConfigurationParameters(Parameters.java:118)
+  org.testng.internal.Invoker.invokeConfigurations(Invoker.java:206)
+  org.testng.internal.Invoker.invokeConfigurations(Invoker.java:146)
+  org.testng.TestRunner.beforeRun(TestRunner.java:626)
+  org.testng.TestRunner.run(TestRunner.java:594)
+  org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
+  org.testng.SuiteRunner.runSequentially(SuiteRunner.java:375)
+  org.testng.SuiteRunner.privateRun(SuiteRunner.java:340)
+  org.testng.SuiteRunner.run(SuiteRunner.java:289)
+  org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+  org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+  org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+  org.testng.TestNG.runSuitesLocally(TestNG.java:1226)
+  org.testng.TestNG.runSuites(TestNG.java:1144)
+  org.testng.TestNG.run(TestNG.java:1115)
+  org.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:72)
+  org.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:123)
+]]>
+      </failure>
+
+          </testcase>
+  
+            <testcase name="destroyLocalBrowserStack" time="0.0" classname="webtest.base.AbstractDemoTest">
+          <skipped />
+    </testcase>
+  
+  
+</testsuite>
