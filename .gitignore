@@ -1,0 +1,40 @@
+# ***global***
+*.classpath
+*.iml
+*.log
+*.project
+.idea
+.metadata
+.settings
+test-output
+
+# ***targets***
+/Demo/BE/**/target
+/Engine/**/target
+/Payment/**/target
+/Aisp/**/target
+/POC/**/target
+/SwaggerUi/**/target
+
+# ***Demo FE target is in git***
+/Demo/FE/agreg-fe/target/m2e-wtp/web-resources/META-INF
+
+# ***Demo FE angular***
+/Demo/FE/agregate-fe-angularjs/node_modules
+/Demo/FE/agregate-fe-angularjs/dist
+/Demo/FE/agregate-fe-angularjs/.tmp
+/Demo/FE/agregate-fe-angularjs/.sass-cache
+/Demo/FE/agregate-fe-angularjs/bower_components
+
+# ***tern-projects***
+/Demo/BE/**/.tern-project
+/Payment/**/.tern-project
+
+# ***others***
+/Payment/BE/config/local/log4j2-engine-api.xml
+/POC/geckodriver.exe
+/POC/output.html
+/Servers2
+
+
+
