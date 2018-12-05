@@ -1,0 +1,8 @@
+webtest\demo\demosmoke\data\NewPageTestData.class
+webtest\demo\demosmoke\step\HomeTestStep.class
+webtest\demo\demosmoke\data\NewPageTestDataProvider.class
+webtest\base\AbstractDemoTest.class
+webtest\base\step\AbstractDemoTestStep.class
+webtest\demo\demosmoke\DemoSmokeTest.class
+webtest\demo\demosmoke\step\AdministrationTestStep.class
+webtest\base\Assert.class

@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<suite name = "Simple HTML-XML Suite">
+
+    <test name = "Simple HTML-XML test">
+        <packages>
+        <package name = "webtest.*"/>
+        </packages>
+
+        <listeners>
+            <listener class-name="org.uncommons.reportng.HTMLReporter" />
+            <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+        </listeners>
+    </test>
+</suite>
