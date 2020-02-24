@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import webtest.exceptions.ElementNotFoundException;
 import webtest.exceptions.TooManyElementsWasFoundException;
+import webtest.page.AbstractTechnicalPage;
 
 import javax.annotation.Nonnull;
 import java.time.Duration;
@@ -45,7 +46,7 @@ public abstract class AbstractElementProvider {
         return true;
     }
 
-    protected AbstractElementProvider(AbstractTechnicalPage sourcePage) {
+    public AbstractElementProvider(AbstractTechnicalPage sourcePage) {
         this.sourcePage = sourcePage;
     }
 

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import webtest.exceptions.ElementNotFoundException;
 import webtest.exceptions.TooManyElementsWasFoundException;
+import webtest.page.AbstractTechnicalPage;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import static webtest.utils.WebElementUtils.getElementTagSilently;
 
 public class Elements extends AbstractElementProvider {
 
-    protected Elements(AbstractTechnicalPage sourcePage) {
+    public Elements(AbstractTechnicalPage sourcePage) {
         super(sourcePage);
     }
 

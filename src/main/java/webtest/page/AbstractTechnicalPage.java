@@ -1,8 +1,9 @@
-package webtest.base;
+package webtest.page;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import webtest.base.*;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -15,13 +16,17 @@ public abstract class AbstractTechnicalPage extends DriverSettings {
     private Elements elementsProvider;
     private final List<Info> validationFailures = new ArrayList<>();
 
-    protected String getCurrentUrl() {
+    private String url;
+
+    public String getCurrentUrl() {
         return DriverSettings.getDriver().getCurrentUrl();
     }
 
     public String getTitle() {
         return DriverSettings.getDriver().getTitle();
     }
+
+    public abstract boolean isOpen();
 
     /**
      * @see #getValidationFailures()
@@ -34,6 +39,11 @@ public abstract class AbstractTechnicalPage extends DriverSettings {
     @Nonnull
     public final String buildFailedReasons(boolean withoutPageInfo) {
         return InfoKt.buildFailedReasons(validationFailures, withoutPageInfo);
+    }
+
+
+    public String getUrl() {
+        return getDriver().getCurrentUrl();
     }
 
     @Nonnull

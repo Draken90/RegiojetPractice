@@ -17,13 +17,14 @@ import java.net.URL;
 import java.util.Scanner;
 
 import static java.lang.String.format;
+import static webtest.base.PropertiesData.getUrl;
 
 public class DriverSettings {
 
     private static WebDriver driver;
     private static Logger logger = LoggerFactory.getLogger(DriverSettings.class);
-    public static final String USERNAME = "michal357";
-    public static final String AUTOMATE_KEY = "yDhLYbXxDUWg4Ntym26g";
+    public static final String USERNAME = "georgehope1";
+    public static final String AUTOMATE_KEY = "BzRyA435eK5NAsSfyP3T";
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
     public static final String COMMAND_START_LOCAL_BS = "C:\\Apps\\bslocal\\BrowserStackLocal.exe --key %s --local-identifier %s";
     public static final long TIMETOUT = 30;
@@ -33,11 +34,11 @@ public class DriverSettings {
     }
 
     public static void inicializeDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Apps\\ChromeDriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Apps\\chrome\\chromedriver.exe");
         logger.info("Creating local WebDriver");
         driver = new ChromeDriver();
-        //TODO Do properties souboru
-        driver.get("http://localhost");
+
+        driver.get(getUrl());
         driver.manage().window().maximize();
     }
 
@@ -110,7 +111,7 @@ public class DriverSettings {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        driver.get("http://localhost");
+        driver.get(getUrl());
     }
 
     protected WebElement findElement(By by) {

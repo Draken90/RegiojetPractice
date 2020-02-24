@@ -2,6 +2,7 @@ package webtest.base;
 
 import org.apache.commons.lang3.Validate;
 import org.openqa.selenium.By;
+import webtest.page.AbstractTechnicalPage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

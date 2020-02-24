@@ -4,6 +4,7 @@ import com.google.common.base.Joiner
 import org.apache.commons.lang3.Validate
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.openqa.selenium.By
+import webtest.page.AbstractTechnicalPage
 import java.util.*
 
 private const val DEFAULT_INDENT = "    "
@@ -193,7 +194,7 @@ class Info private constructor(private val page: AbstractTechnicalPage) {
      * Page errors: No error message detected on page.
      */
     private fun addCurrentPageStateAndErrorInfo() {
-        parts.add("Current page url: [${page.currentUrl}]")
+        parts.add("Current page url: [${page.getCurrentUrl()}]")
         parts.add("Current page title: [${page.title}]")
     }
 

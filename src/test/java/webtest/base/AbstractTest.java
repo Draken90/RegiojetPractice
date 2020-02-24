@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class AbstractDemoTest {
+public class AbstractTest {
 
     @Parameters("withBrowserstack")
     @BeforeMethod
@@ -46,7 +46,7 @@ public class AbstractDemoTest {
             File scrFile = ((TakesScreenshot) DriverSettings.getDriver()).getScreenshotAs(OutputType.FILE);
             try {
                 FileUtils.copyFile(scrFile, new File("..\\ScreenShots\\" + result.getName() + "-"
-                        + new SimpleDateFormat("ddMMHHmm").format(new Date()).toString() + ".jpg"));
+                        + new SimpleDateFormat("ddMMHHmm").format(new Date()) + ".jpg"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -56,6 +56,7 @@ public class AbstractDemoTest {
             }
         }
 
+        DriverSettings.getDriver().close();
         DriverSettings.getDriver().quit();
     }
 
