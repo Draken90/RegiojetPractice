@@ -7,8 +7,7 @@
         </packages>
 
         <listeners>
-            <listener class-name="org.uncommons.reportng.HTMLReporter" />
-            <listener class-name="report.realtime.listener.RealTimeTestResultListener" />
+            <listener class-name="report.realtime.listener.RealTimeTestResultListener"/>
         </listeners>
     </test>
 </suite>
