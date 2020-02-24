@@ -2,11 +2,12 @@ package webtest.base;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,7 @@ public class DriverSettings {
     public static final String AUTOMATE_KEY = "yDhLYbXxDUWg4Ntym26g";
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
     public static final String COMMAND_START_LOCAL_BS = "C:\\Apps\\bslocal\\BrowserStackLocal.exe --key %s --local-identifier %s";
+    public static final long TIMETOUT = 30;
     private static Process localBrowserStack = null;
     public static WebDriver getDriver() {
         return driver;
@@ -37,6 +39,14 @@ public class DriverSettings {
         //TODO Do properties souboru
         driver.get("http://localhost");
         driver.manage().window().maximize();
+    }
+
+    public static WebDriverWait getWait() {
+        return new WebDriverWait(DriverSettings.getDriver(), TIMETOUT);
+    }
+
+    public static Actions getActions() {
+        return new Actions(driver);
     }
 
     public static String getUSERNAME() {

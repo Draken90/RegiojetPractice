@@ -21,6 +21,10 @@ public class PropertiesData {
         return getPropertiesFile().getProperty("data.login.nickname");
     }
 
+    public static String getUrl() {
+        return getPropertiesFile().getProperty("application.url");
+    }
+
     public static String getPassword() {
         return getPropertiesFile().getProperty("data.login.password");
     }
