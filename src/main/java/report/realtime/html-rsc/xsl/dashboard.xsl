@@ -336,7 +336,7 @@
                     <div class="col-md-6 gap-below highlight fix-height">
                         <div class="r3_counter_box blue">
                             <p class="title left">Suite</p>
-                            <p class="number right font-800">
+                            <p class="number right">
                                 <xsl:if test="$totalSuite &gt; 0">
                                     <xsl:value-of select="$totalSuite"/>
                                 </xsl:if>
@@ -349,7 +349,7 @@
                     <div class="col-md-6 gap-below highlight fix-height">
                         <div class="r3_counter_box green">
                             <p class="title left">Executable Test Methods</p>
-                            <p class="number right font-800">
+                            <p class="number right font-500">
                                 <xsl:value-of select="$executableMethod"/>
                             </p>
                         </div>
@@ -626,7 +626,7 @@
     <xsl:template name="footer">
         <!-- Footer section start -->
         <footer>
-            <p>Design by 'startingwithseleniumwebdriver' team</p>
+            <p>2020</p>
         </footer>
         <!-- Footer section end -->
     </xsl:template>

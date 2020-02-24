@@ -83,10 +83,10 @@
 .highlight p.number {
     position: relative;
     top: -10;
-    font-size: 65px;
+    font-size: 45px;
     bottom: 0;
     float: right;
-    right: -5px;
+    right: 40px;
 }
 
 .font-800 {
