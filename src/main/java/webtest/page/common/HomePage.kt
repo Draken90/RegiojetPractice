@@ -9,9 +9,14 @@ class HomePage : AbstractTechnicalPage() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun validateSearchIsDisplayed() = elements().validateIsDisplayedExactlyOne(
-        ComponentType.TEXT_INPUT,
-        "Google vyhledávací pole",
-        By.className("RNNXgb")
-    );
+    fun validateLogoIsDisplayed() = elements().validateIsDisplayedExactlyOne(
+        ComponentType.IMAGE,
+        "Logo Škoda auto",
+        By.id("nav_skoda_logo")
+    )
+
+    fun clickOnIdeas(): IdeasPage {
+        elements().performClick(ComponentType.BUTTON, By.id("navlink_ideas"))
+        return IdeasPage()
+    }
 }

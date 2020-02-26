@@ -8,6 +8,11 @@ class HomeTest : AbstractTest() {
 
     @Test
     fun testMe() {
-        HomePage().validateSearchIsDisplayed()
+        with(HomePage()) {
+            validateLogoIsDisplayed()
+            clickOnIdeas().run {
+                verifyButtonReloadIsDisplayed()
+            }
+        }
     }
 }
