@@ -33,8 +33,7 @@ public abstract class AbstractElementProvider {
 
     static final String VALUE_ATTR = "value";
 
-    // TODO paka pro vyvojare: nacitavat z properties
-    private int implicitWaitSeconds = 30;
+    private final int implicitWaitSeconds = 30;
 
     /**
      * SourcePage is page used in error message for identification of place where error originated.

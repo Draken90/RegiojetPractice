@@ -79,30 +79,6 @@ class Info private constructor(private val page: AbstractTechnicalPage) {
         message(ON_THE_SAME_LINE + message, *params)
 
     /**
-     * Add element class, element key and message which this key refers to.
-     *
-     *
-     * e.g.
-     *
-     * Element type: [ButtonElement]
-     *
-     * Element Caption: [Žádost o úhradu z externího účtu]
-     *
-     * Element Key: [LABEL.rft.initial.heading.create]
-     */
-    fun element(
-        elementClass: Class<Any>,
-        // TODO: z nejakeho duvodu projekt OneIB porad nema klice od vyvoje!!! Trask porad nepozadal vyvoj o klice I18NKey!
-        elementKey:/*I18NKey*/ Any
-    ): Info {
-        Validate.notNull(elementClass, "elementClass")
-        Validate.notNull(elementKey, "elementKey")
-        element(elementClass)
-        element(elementKey)
-        return this
-    }
-
-    /**
      * Add element class
      *
      *
@@ -113,40 +89,6 @@ class Info private constructor(private val page: AbstractTechnicalPage) {
     fun element(elementClass: Class<Any>): Info {
         Validate.notNull(elementClass)
         parts.add(format(ELEMENT_TYPE_TEMPLATE, elementClass.simpleName))
-        return this
-    }
-
-    /**
-     * Add element key and message which this key refers to.
-     *
-     *
-     * e.g.
-     *
-     * Element Caption: [Žádost o úhradu z externího účtu]
-     *
-     * Element Key: [LABEL.rft.initial.heading.create]
-     */
-    fun element(
-        // TODO: z nejakeho duvodu projekt OneIB porad nema klice od vyvoje!!! Trask porad nepozadal vyvoj o klice I18NKey!
-        elementKey:/*I18NKey*/ Any
-    ): Info {
-        Validate.notNull(elementKey)
-        parts.add(
-            Joiner.on(System.lineSeparator()).join(
-                format(
-                    ELEMENT_CAPTION_TEMPLATE,
-                    // TODO: z nejakeho duvodu projekt OneIB porad nema klice od vyvoje!!! Trask porad nepozadal vyvoj o klice I18NKey!
-                    // page.getMessage(elementKey)).getMessage(),
-                    "TODO Trask ma zazadat o elementKey I18NKey - $elementKey"
-                ),
-                format(
-                    ELEMENT_CAPTION_KEY_TEMPLATE,
-                    // TODO: z nejakeho duvodu projekt OneIB porad nema klice od vyvoje!!! Trask porad nepozadal vyvoj o klice I18NKey!
-                    // elementKey.getKey()).getMessage())
-                    "TODO Trask ma zazadat o elementKey I18NKey - $elementKey"
-                )
-            )
-        )
         return this
     }
 

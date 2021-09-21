@@ -39,10 +39,8 @@ public class DriverSettings {
         logger.info("Creating local WebDriver");
         driver = new ChromeDriver();
         driver.get(getUrl());
-        driver.manage().addCookie(new Cookie("trask", "dev"));
         driver.get(getUrl());
         driver.manage().window().maximize();
-
     }
 
     public static WebDriverWait getWait() {

@@ -28,14 +28,6 @@ public abstract class AbstractTechnicalPage extends DriverSettings {
 
     public abstract boolean isOpen();
 
-    /**
-     * @see #getValidationFailures()
-     * t)
-     * <p>
-     * HINT:
-     * tato metoda je zde jen kvuli kompatibilite s Javorem, pokud se bude tato knihovna s JAVOREM slucovat, aby to Javor neprebil.
-     * prakticky ale uzitecna moc neni, jelikoz je pouhou obalkou nad statickou funkci.
-     */
     @Nonnull
     public final String buildFailedReasons(boolean withoutPageInfo) {
         return InfoKt.buildFailedReasons(validationFailures, withoutPageInfo);

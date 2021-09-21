@@ -27,7 +27,7 @@ object Assert {
                 }
             if (page.validationFailures.isNotEmpty()) {
                 errorMessage.message(
-                    reasonsPrefix + " " + page.buildFailedReasons(true).indentLinesExceptFirst(
+                    "$reasonsPrefix " + page.buildFailedReasons(true).indentLinesExceptFirst(
                         reasonsPrefix.length + 1
                     )
                 )

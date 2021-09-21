@@ -8,11 +8,6 @@ class HomeTest : AbstractTest() {
 
     @Test
     fun testMe() {
-        with(HomePage()) {
-            validateLogoIsDisplayed()
-            clickOnIdeas().run {
-                verifyButtonReloadIsDisplayed()
-            }
+        println("ok")
         }
     }
-}

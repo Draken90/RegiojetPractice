@@ -4,7 +4,9 @@ import BrowserstackREST.BrowserStackREST;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
+import org.testng.TestRunner;
 import org.testng.annotations.*;
 import webtest.base.step.AbstractDemoTestStep;
 
@@ -20,7 +22,6 @@ public class AbstractTest {
     @Parameters("withBrowserstack")
     @BeforeMethod
     public void inicializeDriver(@Optional("withBrowserstack") String withBrowserstack, Method method) {
-
         if (withBrowserstack.equals("true")) {
             DriverSettings.configureBrowserStack(method.getName());
         } else {
@@ -35,6 +36,17 @@ public class AbstractTest {
         if (withBrowserStack.equals("true")) {
             DriverSettings.startLocalBrowserStack();
         }
+
+    }
+
+    @AfterTest
+    public void setupTestResultOutput() {
+     // Copy test reportu nekam jinam
+     /*   try {
+            FileUtils.copyDirectory(new File("RealtimeReport"), new File("C:/test/datum"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
     }
 
