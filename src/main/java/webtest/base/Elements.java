@@ -114,8 +114,8 @@ public class Elements extends AbstractElementProvider {
     }
 
     /**
-     * !!! DON'T USE THIS METHOD IF specific findXXX method exists !!!
-     * <p>
+     * !!! DON'T USE THIS METHOD  findXXX method exists !!!
+     * <p>IF specific
      * Search for one or more elements of specific type by XPath.
      *
      * @param silentIfEmpty If none element was found and silentIfEmpty is true the method returns empty list but if silentIfEmpty is false the exception is thrown.
