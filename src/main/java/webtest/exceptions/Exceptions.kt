@@ -27,6 +27,9 @@ class ServerIsDownException @JvmOverloads constructor(message: String, cause: Th
 class LoginException @JvmOverloads constructor(message: String, cause: Throwable? = null) :
     AssertionError(message, cause)
 
+class InvalidElementDefException @JvmOverloads constructor(message: String, cause: Throwable? = null) :
+    AssertionError(message, cause)
+
 /**
  * Use this class if you need rethrow design exception as runtime exception
  * and avoid Sonar inspection error "Define and throw a dedicated exception instead of using a generic one."

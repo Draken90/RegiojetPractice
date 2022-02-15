@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import webtest.exceptions.ElementNotFoundException;
 import webtest.exceptions.TooManyElementsWasFoundException;
-import webtest.page.AbstractTechnicalPage;
+import webtest.page.common.AbstractTechnicalPage;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -31,24 +31,24 @@ public class Elements extends AbstractElementProvider {
         return false;
     }
 
-    public WebElement findSubElement(WebElement parent, By by) {
+    public WebElement findSubElement(WebElement parent, ElementDef def) {
         if (parent == null) {
-            throw new IllegalStateException(format("Can not search for sub element with selector [%s] because input param 'parent' is null.", by));
+            throw new IllegalStateException(format("Can not search for sub element with selector [%s] because input param 'parent' is null.", def.getSelector()));
         }
-        List<WebElement> candidates = parent.findElements(by);
+        List<WebElement> candidates = parent.findElements(def.getSelector());
         if (candidates.size() == 1) {
             return candidates.get(0);
         } else if (candidates.size() > 1) {
             throw new TooManyElementsWasFoundException(Info.of(getSourcePage())
                     .message("Podle zadaného selectoru byl očekáván pouze 1 sub-element na poskytnutém parentovi [{}], ", getElementTagSilently(parent))
                     .messageSameLine("ale nalezeno jich je více [{}].", candidates.size())
-                    .message("Podmínka/Selector: [{}]", by)
+                    .element(def)
                     .message("Tip pro vývojáře: ověřte správnost selectoru.")
                     .build());
         } else {
             throw new ElementNotFoundException(Info.of(getSourcePage())
                     .message("Sub-element nebyl nalezen na poskytnutém parentovi.")
-                    .message("Podmínka/Selector: [{}]", by)
+                    .element(def)
                     .build());
         }
     }
@@ -73,6 +73,10 @@ public class Elements extends AbstractElementProvider {
         return internalFindElement(typeOfElement, by, silent);
     }
 
+    public WebElement findElement(ElementDef def) {
+        return internalFindElement(def.getComponentType(), def.getSelector(), false);
+    }
+
     /**
      * Direct call of this method is not allowed.
      * Use {@link #findElement(ComponentType, By, boolean)}
@@ -93,6 +97,10 @@ public class Elements extends AbstractElementProvider {
     @NotNull
     public List<WebElement> findElements(@NotNull By by) {
         throw new IllegalStateException("Use different method on this class. Direct call of this method is not allowed.");
+    }
+
+    public List<WebElement> findElements(ElementDef def) {
+        return findElements(def.getComponentType(), def.getSelector(), true);
     }
 
     public List<WebElement> findElements(ComponentType typeOfElements, By by, boolean silentIfEmpty) {
@@ -219,6 +227,10 @@ public class Elements extends AbstractElementProvider {
         internalSetValue(element, value, true, true);
     }
 
+    public void setValue(ElementDef def, String value) {
+        internalSetValue(def, value, true);
+    }
+
     public void setValueWithoutTab(WebElement element, String value) {
         internalSetValue(element, value, false, true);
     }
@@ -267,9 +279,12 @@ public class Elements extends AbstractElementProvider {
      */
     @Deprecated
     public boolean isDisplayed(By selector) {
-        return getDriver()
-                .findElements(selector).stream()
+        return findElements(selector).stream()
                 .anyMatch(WebElement::isDisplayed);
+    }
+
+    public boolean isDisplayed(ElementDef def) {
+        return findElement(def).isDisplayed();
     }
 
     @SuppressWarnings("squid:S1192" /* because of better code readability */)
@@ -284,6 +299,10 @@ public class Elements extends AbstractElementProvider {
         }
     }
 
+    public void validateIsDisplayedExactlyOne(ElementDef def) {
+        validateIsDisplayedExactlyOne(def.getComponentType(), def.getUserFriendlyName(), def.getSelector(), "");
+    }
+
     public void validateIsDisplayedExactlyOne(ComponentType typeOfElement, String userFriendlyName, By selector) {
         validateIsDisplayedExactlyOne(typeOfElement, userFriendlyName, selector, "");
     }
@@ -291,6 +310,10 @@ public class Elements extends AbstractElementProvider {
     @Override
     public void validateIsDisplayedExactlyOne(ComponentType typeOfElement, String userFriendlyName, By selector, String additionMessage) {
         super.validateIsDisplayedExactlyOne(typeOfElement, userFriendlyName, selector, additionMessage);
+    }
+
+    public void validateIsNotDisplayed(ElementDef def) {
+        super.validateIsNotDisplayed(def, "");
     }
 
     /**
@@ -306,6 +329,10 @@ public class Elements extends AbstractElementProvider {
 
     public void performClick(ComponentType typeOfElement, By selector) {
         internalPerformClick(findElement(typeOfElement, selector, false));
+    }
+
+    public void performClick(ElementDef def) {
+        internalPerformClick(findElement(def.getComponentType(), def.getSelector(), false));
     }
 
     public void clickOnLinkByVisibleText(@Nonnull String linkVisibleText) {

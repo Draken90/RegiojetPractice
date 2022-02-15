@@ -1,12 +1,14 @@
 package webtest.base
 
 import org.apache.commons.lang3.StringUtils.isNotBlank
+import org.openqa.selenium.WebElement
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.testng.Assert.fail
 
 import webtest.exceptions.InvalidValueException
 import webtest.exceptions.PageIsNotOpenException
-import webtest.page.AbstractTechnicalPage
+import webtest.page.common.AbstractTechnicalPage
 
 
 object Assert {
@@ -45,6 +47,16 @@ object Assert {
     fun assertNotEmpty(list: List<Any>?, message: String) {
         if (list == null || list.isEmpty()) {
             throw InvalidValueException("Tested collection should be not empty. $message")
+        }
+    }
+
+    @JvmStatic
+    fun assertElementIsDisabled(page: AbstractTechnicalPage, def: ElementDef){
+        if (page.elements().findElement(def).isEnabled){
+            fail(Info.of(page)
+                .message("Bylo očekáváno, že tlačítko bude disabled, ale není")
+                .element(def)
+                .build())
         }
     }
 }

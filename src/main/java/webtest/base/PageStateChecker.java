@@ -2,7 +2,7 @@ package webtest.base;
 
 import org.apache.commons.lang3.Validate;
 import org.openqa.selenium.By;
-import webtest.page.AbstractTechnicalPage;
+import webtest.page.common.AbstractTechnicalPage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,7 +10,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 /**
- * PageStateChecker is supposed to be used in conjunction with method {@link AbstractTechnicalPage#checkAll(PageStateChecker...)}
+ * PageStateChecker is supposed to be used in conjunction with method {@link AbstractTechnicalPage#(PageStateChecker...)}
  */
 public final class PageStateChecker {
     private BooleanSupplier checker;
@@ -49,6 +49,18 @@ public final class PageStateChecker {
         checker.orInfo(() -> Info.of(page)
                 .message("Expected element of type [{}] is not displayed at page.", typeOfElement.getUserFriendlyName())
                 .message("Selector: [{}]", by));
+        return checker;
+    }
+
+    @Nonnull
+    public static PageStateChecker thatIsElementDisplayed(
+            @Nonnull final AbstractTechnicalPage page,
+            @Nonnull final ElementDef def) {
+        PageStateChecker checker = that(() -> page.elements().isDisplayed(def));
+        checker.page = page;
+        checker.orInfo(() -> Info.of(page)
+                .message("Expected element of type [{}] is not displayed at page.", def.getComponentType())
+                .message("Selector: [{}]", def.getSelector().toString()));
         return checker;
     }
 

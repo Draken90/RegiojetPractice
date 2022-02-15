@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import webtest.exceptions.ElementNotFoundException;
 import webtest.exceptions.TooManyElementsWasFoundException;
-import webtest.page.AbstractTechnicalPage;
+import webtest.page.common.AbstractTechnicalPage;
 
 import javax.annotation.Nonnull;
 import java.time.Duration;
@@ -51,6 +51,14 @@ public abstract class AbstractElementProvider {
 
     protected AbstractTechnicalPage getSourcePage() {
         return sourcePage;
+    }
+
+    private List<WebElement> findElements(By by) {
+        try {
+            getWait().until(ExpectedConditions.presenceOfElementLocated(by));
+        } catch (TimeoutException ignored) {
+        }
+        return getDriver().findElements(by);
     }
 
     protected WebElement evaluateSingleElementFindings(List<WebElement> elements,
@@ -153,8 +161,9 @@ public abstract class AbstractElementProvider {
                     .addLn(getPageInfoSilently(getSourcePage())).toString(), ex);
         } catch (WebDriverException ex) {
             // we will try one more click()
-            TestUtils.sleep(1000);
+            TestUtils.sleep(5000);
             try {
+                getWait().until(ExpectedConditions.elementToBeClickable(element));
                 element.click();
             } catch (Exception ignored) {
                 throw new IllegalStateException(formatExLn("Click on element failed. See inner exception for more details.")
@@ -170,14 +179,26 @@ public abstract class AbstractElementProvider {
 
     protected WebElement internalFindElement(ComponentType typeOfElement, By by, boolean silent) {
         waitUntilPageIsLoaded();
-        List<WebElement> candidates = getDriver().findElements(by);
+        List<WebElement> candidates = findElements(by);
         return evaluateSingleElementFindings(candidates, typeOfElement, "By", by.toString(), silent);
+    }
+
+    protected WebElement internalFindElement(ElementDef def, boolean silent) {
+        waitUntilPageIsLoaded();
+        List<WebElement> candidates = getDriver().findElements(def.getSelector());
+        return evaluateSingleElementFindings(candidates, def.getComponentType(), "By", def.getSelector().toString(), silent);
     }
 
     protected List<WebElement> internalFindElements(ComponentType typeOfElement, String typeOfCondition, By by, boolean silentIfEmpty) {
         waitUntilPageIsLoaded();
         List<WebElement> candidates = getDriver().findElements(by);
         return evaluateMultipleElementFindings(candidates, typeOfElement, typeOfCondition, by.toString(), silentIfEmpty);
+    }
+
+    protected List<WebElement> internalFindElements(ElementDef def, boolean silentIfEmpty) {
+        waitUntilPageIsLoaded();
+        List<WebElement> candidates = findElements(def.getSelector());
+        return evaluateMultipleElementFindings(candidates, def.getComponentType(), "Def", def.getSelector().toString(), silentIfEmpty);
     }
 
     protected WebElement internalFindById(ComponentType elementType, String id, boolean silent) {
@@ -243,6 +264,11 @@ public abstract class AbstractElementProvider {
         internalSetValue(candidate, value, true, checkIfIsSet);
     }
 
+    protected void internalSetValue(ElementDef def, String value, boolean checkIfIsSet) {
+        WebElement candidate = internalFindElement(def, false);
+        internalSetValue(candidate, value, true, checkIfIsSet);
+    }
+
     @SuppressWarnings("squid:S135" /* cause: 'Loops should not contain more than a single "break" or "continue" statement" reason: we need more breaks here */)
     protected void internalSetValue(WebElement element, @Nonnull String value, boolean sendTab, boolean checkIfIsSet) {
         log.debug("      set value [{}] to element [{}]", value, getElementIdentificationSilently(element));
@@ -295,8 +321,8 @@ public abstract class AbstractElementProvider {
 
     @SuppressWarnings("squid:S1192" /* because of better code readability */)
     protected void validateIsDisplayedExactlyOne(ComponentType typeOfElement, String userFriendlyName, By selector, String additionMessage) {
-        long candidateCount = getDriver()
-                .findElements(selector).stream()
+        long candidateCount = findElements(selector)
+                .stream()
                 .filter(WebElement::isDisplayed)
                 .count();
         if (candidateCount == 0) {
@@ -314,6 +340,25 @@ public abstract class AbstractElementProvider {
                     .message("Podle zadaného selectoru byl očekáván pouze 1 element [{}], ale nalezeno jich je více [{}].", userFriendlyName, candidateCount)
                     .message("Typ hledaného elementu: [{}]", typeOfElement)
                     .message("Element selector: [{}]", selector)
+                    .message("Tip pro vývojáře: ověřte správnost selectoru.");
+            if (isNotBlank(additionMessage)) {
+                errorMessage.message("Doplňující message: [{}]", additionMessage);
+            }
+            throw new TooManyElementsWasFoundException(errorMessage.build());
+        }
+        // else: exactly 1 element was found. That's success.
+    }
+
+    protected void validateIsNotDisplayed(ElementDef def, String additionMessage) {
+        long candidateCount = getDriver().findElements(def.getSelector())
+                .stream()
+                .filter(WebElement::isDisplayed)
+                .count();
+        if (candidateCount > 0) {
+            Info errorMessage = Info.of(getSourcePage())
+                    .message("Podle zadaného selectoru nebyl očekáván žádný element [{}], ale nalezeno jich je více [{}].", def.getUserFriendlyName(), candidateCount)
+                    .message("Typ hledaného elementu: [{}]", def.getComponentType())
+                    .message("Element selector: [{}]", def.getSelector())
                     .message("Tip pro vývojáře: ověřte správnost selectoru.");
             if (isNotBlank(additionMessage)) {
                 errorMessage.message("Doplňující message: [{}]", additionMessage);
@@ -359,6 +404,32 @@ public abstract class AbstractElementProvider {
         if (!fails.isEmpty()) {
             throw new ElementNotVisibleException(
                     format("Elementy typu [%s] nebyly nalezeny \n", componentType.getUserFriendlyName()) + String.join(System.lineSeparator(), fails));
+        }
+    }
+
+
+    public void validateElementsAreDisplayed(ElementDef... defs) {
+        List<String> fails = new ArrayList<>();
+        for (ElementDef def : defs) {
+            long candidateCount =
+                    internalFindElements(def, true).stream()
+                            .filter(WebElement::isDisplayed)
+                            .count();
+
+            if (candidateCount == 0) {
+                fails.add(Info.of(getSourcePage())
+                        .message("Jeden nebo více elementů typu je očekáváno, ale žádný nebyl nalezen.")
+                        .element(def).build());
+            } else if (candidateCount > 1) {
+                Info errorMessage = Info.of(getSourcePage())
+                        .message("Podle zadaného selectoru byl očekáván pouze 1 element, ale nalezeno jich je více [{}].", candidateCount)
+                        .element(def);
+                throw new TooManyElementsWasFoundException(errorMessage.build());
+            }
+        }
+        if (!fails.isEmpty()) {
+            throw new ElementNotVisibleException(
+                    format("Tyto elementy nebyly nalezeny: \n") + String.join(System.lineSeparator(), fails));
         }
     }
 

@@ -4,17 +4,17 @@ import BrowserstackREST.BrowserStackREST;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.testng.ITestContext;
 import org.testng.ITestResult;
-import org.testng.TestRunner;
 import org.testng.annotations.*;
-import webtest.base.step.AbstractDemoTestStep;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static webtest.base.Assert.assertPageIsOpen;
 
 
 public class AbstractTest {
@@ -79,16 +79,6 @@ public class AbstractTest {
             DriverSettings.destroyLocalBrowserstackProcess();
         }
 
-    }
-
-    protected void login() {
-        AbstractDemoTestStep step = new AbstractDemoTestStep();
-        step.login();
-    }
-
-    protected void logout() {
-        AbstractDemoTestStep step = new AbstractDemoTestStep();
-        step.logout();
     }
 
 }

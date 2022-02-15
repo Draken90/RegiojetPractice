@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
-<suite name = "Simple HTML-XML Suite">
+<suite name = "OMS">
 
-    <test name = "Simple HTML-XML test">
+    <test name = "OMS">
         <packages>
         <package name = "webtest.*"/>
         </packages>

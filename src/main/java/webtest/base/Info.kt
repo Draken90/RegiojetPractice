@@ -1,10 +1,9 @@
 package webtest.base
 
-import com.google.common.base.Joiner
 import org.apache.commons.lang3.Validate
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.openqa.selenium.By
-import webtest.page.AbstractTechnicalPage
+import webtest.page.common.AbstractTechnicalPage
 import java.util.*
 
 private const val DEFAULT_INDENT = "    "
@@ -89,6 +88,14 @@ class Info private constructor(private val page: AbstractTechnicalPage) {
     fun element(elementClass: Class<Any>): Info {
         Validate.notNull(elementClass)
         parts.add(format(ELEMENT_TYPE_TEMPLATE, elementClass.simpleName))
+        return this
+    }
+
+
+    fun element(def: ElementDef): Info {
+        Validate.notNull(def)
+        parts.add(format(ELEMENT_TYPE_TEMPLATE, def.componentType))
+        parts.add(format(ELEMENT_SELECTOR_TEMPLATE, def.selector))
         return this
     }
 

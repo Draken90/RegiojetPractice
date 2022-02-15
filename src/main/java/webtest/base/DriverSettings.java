@@ -1,9 +1,6 @@
 package webtest.base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -28,14 +25,13 @@ public class DriverSettings {
     protected static final String AUTOMATE_KEY = "BzRyA435eK5NAsSfyP3T";
     protected static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
     protected static final String COMMAND_START_LOCAL_BS = "C:\\Apps\\bslocal\\BrowserStackLocal.exe --key %s --local-identifier %s";
-    protected static final long TIMETOUT = 30;
     private static Process localBrowserStack = null;
     public static WebDriver getDriver() {
         return driver;
     }
 
     public static void inicializeDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Apps\\chrome\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Apps\\chrome\\chromedriver_win32\\chromedriver.exe");
         logger.info("Creating local WebDriver");
         driver = new ChromeDriver();
         driver.get(getUrl());
@@ -44,7 +40,7 @@ public class DriverSettings {
     }
 
     public static WebDriverWait getWait() {
-        return new WebDriverWait(DriverSettings.getDriver(), TIMETOUT);
+        return new WebDriverWait(DriverSettings.getDriver(),Long.parseLong(PropertiesData.getTimeout()));
     }
 
     public static Actions getActions() {
@@ -113,9 +109,5 @@ public class DriverSettings {
             e.printStackTrace();
         }
         driver.get(getUrl());
-    }
-
-    protected WebElement findElement(By by) {
-        return getDriver().findElement(by);
     }
 }

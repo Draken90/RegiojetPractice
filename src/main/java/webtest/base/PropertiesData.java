@@ -29,7 +29,7 @@ public class PropertiesData {
         return getPropertiesFile().getProperty("data.login.password");
     }
 
-    public static String getPageLoadTimeout() {
+    public static String getTimeout() {
         return getPropertiesFile().getProperty("load.timeout");
     }
 }

@@ -1,9 +1,0 @@
-webtest\base\DriverSettings.class
-webtest\demo\demosmoke\HomePage.class
-webtest\base\PropertiesData.class
-webtest\demo\demosmoke\ArticlePage.class
-webtest\demo\demosmoke\AdministrationPage.class
-BrowserstackREST\BrowserStackREST.class
-webtest\base\AbstractDemoPage.class
-webtest\demo\demosmoke\CreateNewPagePage.class
-webtest\demo\demosmoke\LoginPage.class

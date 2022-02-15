@@ -1,9 +1,13 @@
-package webtest.page;
+package webtest.page.common;
 
+import cz.csob.oneib.common.util.TestUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import webtest.base.*;
+import webtest.exceptions.ServerIsDownException;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -83,4 +87,8 @@ public abstract class AbstractTechnicalPage extends DriverSettings {
         elements().waitUntilPageIsLoaded();
     }
 
+    public void waitForPageLoad() {
+        TestUtils.waitForJavaScript(500);
+        getWait().until(ExpectedConditions.invisibilityOfElementLocated(By.className("_1x6-mV8g8LA2lZBrZnZBVX")));
+    }
 }

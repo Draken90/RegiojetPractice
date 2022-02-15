@@ -55,6 +55,8 @@ public enum ComponentType {
 
     FRAME("frame"),
 
+    INPUT("input"),
+
     /**
      * Something like small modal mini dialog with content opened when clicked on some other component.
      */
