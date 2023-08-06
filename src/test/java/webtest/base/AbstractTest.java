@@ -21,32 +21,21 @@ public class AbstractTest {
 
     @Parameters("withBrowserstack")
     @BeforeMethod
-    public void inicializeDriver(@Optional("withBrowserstack") String withBrowserstack, Method method) {
+    public void initializeDriver(@Optional("withBrowserstack") String withBrowserstack, Method method) {
         if (withBrowserstack.equals("true")) {
             DriverSettings.configureBrowserStack(method.getName());
         } else {
-            DriverSettings.inicializeDriver();
+            DriverSettings.initializeDriver();
         }
 
     }
 
     @Parameters("withBrowserstack")
     @BeforeTest
-    public void inicializeLocalBs(@Optional("withBrowserstack") String withBrowserStack) {
+    public void initializeLocalBs(@Optional("withBrowserstack") String withBrowserStack) {
         if (withBrowserStack.equals("true")) {
             DriverSettings.startLocalBrowserStack();
         }
-
-    }
-
-    @AfterTest
-    public void setupTestResultOutput() {
-     // Copy test reportu nekam jinam
-     /*   try {
-            FileUtils.copyDirectory(new File("RealtimeReport"), new File("C:/test/datum"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
 
     }
 

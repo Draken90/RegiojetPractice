@@ -20,6 +20,8 @@ public enum ComponentType {
     DIALOG_CAPTION("Dialog caption"),
     DIALOG_BUTTON("Dialog button"),
 
+    PAGE_LOGO("Logo on Page"),
+
     MAIN_MENU_BUTTON("Main Menu Button"),
     MAIN_MENU_ITEM("Main Menu Item"),
     SUB_MENU_ITEM("Sub Menu Item"),

@@ -2,7 +2,6 @@ package webtest.page.common
 
 import org.openqa.selenium.WebElement
 import webtest.base.ElementDef
-import javax.xml.bind.Element
 
 abstract class AbstractRowPage(val baseElement: WebElement) : AbstractTechnicalPage() {
 
