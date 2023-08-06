@@ -1,4 +1,4 @@
-package webtest.base.step
+package webtest.base
 
 import BrowserstackREST.BrowserStackREST
 import org.apache.commons.io.FileUtils
@@ -7,8 +7,6 @@ import org.openqa.selenium.TakesScreenshot
 import org.testng.ITestResult
 import org.testng.annotations.*
 import org.testng.annotations.Optional
-import webtest.base.DriverSettings
-import webtest.base.PropertiesData
 import webtest.page.app.LoginPage
 import webtest.page.app.MainPage
 import java.io.File
