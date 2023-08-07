@@ -7,5 +7,6 @@ class BaseTest : AbstractTestNew() {
     @Test
     fun exampleTest(){
         login().validateLoggedIn()
+        //koment
     }
 }
