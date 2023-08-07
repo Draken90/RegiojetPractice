@@ -12,14 +12,16 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.Scanner;
 
+import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static webtest.base.PropertiesData.getUrl;
 
 public class DriverSettings {
 
-    private static WebDriver driver;
+    public static WebDriver driver;
     private static Logger logger = LoggerFactory.getLogger(DriverSettings.class);
     protected static final String USERNAME = "georgehope1";
     protected static final String AUTOMATE_KEY = "BzRyA435eK5NAsSfyP3T";
@@ -40,7 +42,7 @@ public class DriverSettings {
     }
 
     public static WebDriverWait getWait() {
-        return new WebDriverWait(DriverSettings.getDriver(),Long.parseLong(PropertiesData.getTimeout()));
+        return new WebDriverWait(DriverSettings.getDriver(), Duration.ofMillis(10)) ;
     }
 
     public static Actions getActions() {

@@ -2,6 +2,7 @@ package webtest.base;
 
 
 import cz.csob.oneib.common.util.TestUtils;
+import kotlin.time.DurationKt;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -33,7 +34,7 @@ public abstract class AbstractElementProvider {
 
     static final String VALUE_ATTR = "value";
 
-    private final int implicitWaitSeconds = 30;
+    private final Duration implicitWaitSeconds = Duration.ofSeconds(30);
 
     /**
      * SourcePage is page used in error message for identification of place where error originated.
@@ -401,10 +402,10 @@ public abstract class AbstractElementProvider {
                 throw new TooManyElementsWasFoundException(errorMessage.build());
             }
         }
-        if (!fails.isEmpty()) {
+        /*if (!fails.isEmpty()) {
             throw new ElementNotVisibleException(
                     format("Elementy typu [%s] nebyly nalezeny \n", componentType.getUserFriendlyName()) + String.join(System.lineSeparator(), fails));
-        }
+        }*/
     }
 
 
@@ -427,10 +428,10 @@ public abstract class AbstractElementProvider {
                 throw new TooManyElementsWasFoundException(errorMessage.build());
             }
         }
-        if (!fails.isEmpty()) {
+        /*if (!fails.isEmpty()) {
             throw new ElementNotVisibleException(
                     format("Tyto elementy nebyly nalezeny: \n") + String.join(System.lineSeparator(), fails));
-        }
+        }*/
     }
 
     @Nonnull

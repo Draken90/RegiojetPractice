@@ -8,7 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import webtest.base.*;
 import webtest.exceptions.ServerIsDownException;
-
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,4 +92,5 @@ public abstract class AbstractTechnicalPage extends DriverSettings {
         TestUtils.waitForJavaScript(500);
         getWait().until(ExpectedConditions.invisibilityOfElementLocated(By.className("_1x6-mV8g8LA2lZBrZnZBVX")));
     }
+
 }
