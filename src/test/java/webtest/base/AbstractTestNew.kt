@@ -16,6 +16,8 @@ import java.util.*
 
 abstract class AbstractTestNew {
 
+    val mainPage = MainPage()
+
     @BeforeMethod
     fun initializeDriver() = DriverSettings.initializeDriver()
 
@@ -40,6 +42,23 @@ abstract class AbstractTestNew {
         DriverSettings.getDriver().quit()
     }
 
+    fun acceptCookies(): LanguagePage {
+
+
+        CookiePage().eatCookies()
+
+        return LanguagePage()
+    }
+
+    fun selectCzechMutation(): MainPage{
+        LanguagePage().selectCzechMutation()
+        return MainPage()
+    }
+
+    fun switchWindows(): CookiePage{
+        CookiePage().switchWindows()
+        return CookiePage()
+    }
 
     /**
      * Zmínit se jak to lze napsat jinak za pouziti core selenia Webdriver, rozdil mezi fce run/let/also ...
