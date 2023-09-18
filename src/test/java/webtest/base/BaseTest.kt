@@ -1,6 +1,5 @@
 package webtest.base
 
-import org.openqa.selenium.support.ui.Select
 import org.testng.annotations.Test
 import webtest.base.step.*
 
@@ -11,19 +10,14 @@ class BaseTest : AbstractTestNew() {
     var teststep3 = AgeUpdatePageTestStep()
     var teststep4 = CustomerInfoPageTestStep()
     var teststep5 = ReservationTestStep()
+    var teststep6 = PaymentTestStep()
 
     @Test
-    fun exampleTest() {
+    fun testPrahaBerlin() {
         Thread.sleep(5000)
         acceptCookies()
         selectCzechMutation()
-        teststep1.selectFromStation("Praha hl. n.")
-        teststep1.selectToStation("Berlin Hbf")
-        teststep1.selectCalendar()
-        teststep1.selectCalendarDate()
-        teststep1.selectDepartureTime(8)
-        teststep1.selectAge()
-        teststep1.selectBahnCard()
+        teststep1.fillInConnection("Praha hl.n.","Berlin hbf",8)
         teststep1.searchForConnection()
         Thread.sleep(5000)
         acceptCookies()
@@ -37,11 +31,19 @@ class BaseTest : AbstractTestNew() {
         teststep4.fillInFirstName("Arnold")
         teststep4.fillInLastName("Rimmer")
         teststep4.proceedAsAnonym()
-        teststep5.selectTrainReservation()
-        teststep5.selectTrainReservationSection()
-        teststep5.selectTrainReservationLocation()
         teststep5.selectTrainReservationNext()
-        Thread.sleep(10000)
-
+        teststep5.selectTicketInsurance()
+        teststep5.selectTicketInsuranceNext()
+        Thread.sleep(5000)
+        teststep6.fillInFirstNamePayment("Arnold")
+        teststep6.fillInLastNamePayment("Rimmer")
+        teststep6.fillInEmailPayment("arnold.rimmer@jmc.uk")
+        teststep6.fillInStreetPayment("Ships cabin")
+        teststep6.fillInPSCPayment("11111")
+        teststep6.fillInPlacePayment("RedDwarf")
+        teststep6.selectPayment()
+        teststep6.selectCountry()
     }
+
+
 }
