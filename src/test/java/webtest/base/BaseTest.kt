@@ -2,6 +2,7 @@ package webtest.base
 
 import org.testng.annotations.Test
 import webtest.base.step.*
+import webtest.page.app.SelectSeatPage
 
 class BaseTest : AbstractTestNew() {
 
