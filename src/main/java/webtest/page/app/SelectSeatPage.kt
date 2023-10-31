@@ -15,6 +15,9 @@ class SelectSeatPage : AbstractTechnicalPage() {
     val seatNumberingGrid: ElementDef = ElementDef(ComponentType.BUTTON, "", By.xpath("(//*[@id='seats-numbering'])[1]"))
     val sNG = elements().findElement(seatNumberingGrid)
     val freeSeatsList = sNG.findElements(By.xpath("//*[contains(@class,'seatfree')]/parent::*"))
+    val continueButton:ElementDef = ElementDef(ComponentType.BUTTON,"Pokračovat",By.xpath("(//div[@class='w-full flex-grow-0 flex-shrink-0 lg:w-2/3']//button[text()='Pokračovat'])[1]"))
+
+
     fun selectSeats(numberOfSeats: Int) {
 
         println("V seznamu je " + freeSeatsList.size + " sedadel")
@@ -25,4 +28,9 @@ class SelectSeatPage : AbstractTechnicalPage() {
 
 
     }
+
+    fun clickOnFirstContinueButton()=elements().performClick(continueButton)
+
+
+
 }

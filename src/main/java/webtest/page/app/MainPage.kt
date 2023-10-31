@@ -25,14 +25,29 @@ class MainPage : AbstractTechnicalPage() {
 
     val passengerClick: ElementDef = ElementDef(ComponentType.ANY,"",By.xpath("//span[text()='Cestující']"))
     val adult: ElementDef = ElementDef(ComponentType.BUTTON, "+", By.xpath("(//span[text() = '+'])[1]"))
+    val minusAdult: ElementDef = ElementDef(ComponentType.BUTTON, "+", By.xpath("(//span[text() = '-'])[1]"))
     val childrenAndYouth: ElementDef = ElementDef(ComponentType.BUTTON, "+", By.xpath("(//span[text() = '+'])[2]"))
     val studentISIC: ElementDef = ElementDef(ComponentType.BUTTON, "+", By.xpath("(//span[text() = '+'])[3]"))
     val senior: ElementDef = ElementDef(ComponentType.BUTTON, "+", By.xpath("(//span[text() = '+'])[4]"))
 
     val searchButton: ElementDef = ElementDef(ComponentType.BUTTON,"Hledat",By.xpath("//button[@data-id='search-btn']"))
+    public var passengerNumber:Int = 0
 
 
     fun clickOnEatCookies() = elements().performClick(eatCookies)
+
+    fun setupPassengers(adults:Int,children618:Int,isic:Int,elderly:Int):List<Int>{
+
+        val passList = listOf(adults,children618,isic,elderly)
+        return passList
+
+    }
+
+    fun sumUpPassengers(inputList:List<Int>):Int{
+
+        return inputList.sum()
+
+    }
 
     fun setDepartureAndArrivalStations(departure: String, arrival: String){
         val stationList = elements().findElements(station)
@@ -44,15 +59,25 @@ class MainPage : AbstractTechnicalPage() {
 
     //fun clickOnPassenger()
 
-    fun clickOnAddPassenger() {
+    fun clickOnAddPassenger(adults:Int,children618:Int,isic:Int,elderly:Int) {
         elements().performClick(passengerClick)
-        elements().performClick(adult)
-        elements().performClick(childrenAndYouth)
-        elements().performClick(studentISIC)
-        elements().performClick(senior)
+        elements().performClick(minusAdult)
+        repeat(adults){
+        elements().performClick(adult)}
+        repeat(children618) {
+            elements().performClick(childrenAndYouth)
+        }
+        repeat(isic) {
+            elements().performClick(studentISIC)
+        }
+        repeat(elderly) {
+            elements().performClick(senior)
+        }
         val robot = Robot()
         robot.keyPress(KeyEvent.VK_ESCAPE)
         robot.keyRelease(KeyEvent.VK_ESCAPE)
+
+
     }
 
 

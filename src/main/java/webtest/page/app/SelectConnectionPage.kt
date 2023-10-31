@@ -10,7 +10,7 @@ class SelectConnectionPage:AbstractTechnicalPage() {
         TODO("Not yet implemented")
     }
 
-    val connection: ElementDef = ElementDef(ComponentType.BUTTON,"Spoj",By.xpath("//div[contains(@class, 'flex sm:flex-col-reverse items-center sm:items-end')]"))
+    val connection: ElementDef = ElementDef(ComponentType.BUTTON,"Spoj",By.xpath("(//button[contains(@data-id,'connection-card-price')])[1]"))
 
     fun clickOnConnection() = elements().performClick(connection)
 }

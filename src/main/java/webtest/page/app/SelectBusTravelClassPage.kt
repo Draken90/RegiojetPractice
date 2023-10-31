@@ -4,6 +4,8 @@ import webtest.page.common.AbstractTechnicalPage
 import webtest.base.ElementDef
 import org.openqa.selenium.By
 import webtest.base.ComponentType
+import org.openqa.selenium.WebDriver
+
 
 class SelectBusTravelClassPage: AbstractTechnicalPage() {
     override fun isOpen(): Boolean {
@@ -17,6 +19,9 @@ class SelectBusTravelClassPage: AbstractTechnicalPage() {
 
     fun acceptChangeToAdult(){
         val buttonAccept: ElementDef = ElementDef(ComponentType.BUTTON, "Rozumím",By.xpath("//button[text()='Rozumím']"))
-        elements().performClick(buttonAccept)
+        val buttonAcceptList = elements().findElements(buttonAccept)
+        if (buttonAcceptList.size==1) {
+            elements().performClick(buttonAccept)
+        }
     }
 }

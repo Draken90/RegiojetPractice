@@ -13,11 +13,13 @@ class BaseTest : AbstractTestNew() {
         val sctp = SelectConnectionTestPage()
         val stcts = SelectBusTravelClassTestStep()
         val sspts = SelectSeatPageTestStep()
+        val pipts = PersonalInfoPageTestStep()
+        val sapts = SelectAddonsPageTestStep()
         mpts.eatCookies()
         Thread.sleep(5000)
-        mpts.setDepartureAndArrival("Praha", "Řím")
+        mpts.setDepartureAndArrival("Praha", "Amsterdam")
         mpts.setDateOfDepartureAndReturn()
-        mpts.clickOnAddPassenger()
+        mpts.clickOnAddPassenger(1,0,0,0)
         mpts.search()
         Thread.sleep(2000)
         sctp.selectConnection()
@@ -26,10 +28,30 @@ class BaseTest : AbstractTestNew() {
         Thread.sleep(2000)
         stcts.acceptChangeToAdult()
         Thread.sleep(2000)
-        sspts.selectSeats(5)
+        sspts.selectSeats()
+        sspts.clickNextFirst()
+        Thread.sleep(2000)
+        sapts.clickOnContinue()
+        Thread.sleep(2000)
+        sctp.selectConnection()
+        Thread.sleep(2000)
+        stcts.groundFloorButton()
+        Thread.sleep(2000)
+        stcts.acceptChangeToAdult()
+        Thread.sleep(2000)
+        sspts.selectSeats()
+        sspts.clickNextFirst()
+        Thread.sleep(2000)
+        sapts.clickOnFirstContinue()
+        Thread.sleep(2000)
+        pipts.fillInConnections()
+        pipts.agreeWithTerms()
+        pipts.fillInNames("Arnold","Rimmer")
+        Thread.sleep(2000)
+        pipts.clickOnFinish()
 
 
     }
-
+//ToDo Zastřešit test velkým TestStepem a propojit jím zadání s počítáním
 
 }
